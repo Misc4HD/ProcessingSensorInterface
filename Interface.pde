@@ -1,27 +1,31 @@
-//import the used librarys
+//import the used librarys.
 import controlP5.*;
 import processing.serial.*;
-//define the image and table
-PImage img;
+//define the image and table.
+PImage img1;
+PImage img2;
 Table table;
-//define the serial port and GUI controller 
+//define the serial port and GUI controller.
 Serial port;
 ControlP5 cp5;
-//define text boxes
+//define text boxes.
 Textarea Textarea_1;
 Textarea Textarea_2;
 Textarea Textarea_3;
 Textarea Textarea_4;
-
+//define all intigers.
 int distance_1 = 0;
 int distance_2 = 0;
 int distance_3 = 0;
 int distance_4 = 0;
 
+int a = 1;
+
 int myColor = color(255,255,255);
 
 void setup() {
-  img = loadImage("Opstelling_File.png");
+  img1 = loadImage("Opstelling_File.png");
+  img2 = loadImage("Background.png");
   
   //print the available serial ports.
   printArray(Serial.list());
@@ -43,9 +47,7 @@ void setup() {
      .setValue(0)
      .setPosition(300,25)
      .setSize(200,40);
-     
-  cp5 = new ControlP5(this);
-  
+       
   Textarea_1 = cp5.addTextarea("Text_Distance_1")
                   .setPosition(100,100)
                   .setSize(200,200)
@@ -74,13 +76,36 @@ void setup() {
                   .setLineHeight(14)
                   .setColor(color(0))
                   ;
-
+                   
+  cp5.getTab("default")
+                 .activateEvent(true)
+                 .setLabel("file parkeren")
+                 .setHeight(40)
+                 .setId(1)
+                 ;
+  cp5.getTab("garage parkeren")
+                 .activateEvent(true)
+                 .setHeight(40)
+                 .setId(2)
+                  ;
+                             
 } 
 
 void draw() {
-  background(myColor);
-  myColor = lerpColor(0,255,1);
-  image(img, 40, 250);
+        image(img2, 0, 0);
+}
+
+void controlEvent(ControlEvent theControlEvent) {
+  if (theControlEvent.isTab()) {
+    if (theControlEvent.getTab().getId() == 1){
+      background(myColor);
+      myColor = lerpColor(0,255,1);
+      image(img1, 40, 250);
+    }else{
+      background(myColor);
+      myColor = lerpColor(0,255,1);  
+    }
+  }
 }
 
 /*
@@ -93,6 +118,9 @@ public void controlEvent(ControlEvent theEvent) {
 // function colorA will receive changes from 
 // controller with name colorA
 public void Measure() { 
+  background(myColor);
+      myColor = lerpColor(0,255,1);  
+      image(img1, 40, 250);
   if ( port.available() > 0) {
     String value = port.readString();
            if (value != null) {
@@ -118,5 +146,11 @@ public void Measure() {
              println("Measurments done!");
              println(list);
          }
+  }
+}
+
+void keyPressed() {
+  if(keyCode==TAB) {
+    cp5.getTab("garage parkeren").bringToFront();
   }
 }
