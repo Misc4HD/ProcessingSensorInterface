@@ -1,12 +1,13 @@
+//import the used librarys
 import controlP5.*;
 import processing.serial.*;
-
+//define the image and table
 PImage img;
 Table table;
-
+//define the serial port and GUI controller 
 Serial port;
 ControlP5 cp5;
-
+//define text boxes
 Textarea Textarea_1;
 Textarea Textarea_2;
 Textarea Textarea_3;
@@ -17,9 +18,7 @@ int distance_2 = 0;
 int distance_3 = 0;
 int distance_4 = 0;
 
-int myColor = color(255);
-int c1,c2;
-float n,n1;
+int myColor = color(255,255,255);
 
 void setup() {
   img = loadImage("Opstelling_File.png");
@@ -34,6 +33,7 @@ void setup() {
   table.addColumn("Distance 1");
   table.addColumn("Distance 2");
   table.addColumn("Distance 3");
+  table.addColumn("Distance 4");
 
   size(800,450);
   noStroke();
@@ -47,28 +47,28 @@ void setup() {
   cp5 = new ControlP5(this);
   
   Textarea_1 = cp5.addTextarea("Text_Distance_1")
-                  .setPosition(20,100)
+                  .setPosition(100,100)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0))
                   ;  
   Textarea_2 = cp5.addTextarea("Text_Distance_2")
-                  .setPosition(20,130)
+                  .setPosition(100,130)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0))
                   ;
   Textarea_3 = cp5.addTextarea("Text_Distance_3")
-                  .setPosition(20,160)
+                  .setPosition(100,160)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0))
                   ;  
   Textarea_4 = cp5.addTextarea("Text_Distance_4")
-                  .setPosition(20,190)
+                  .setPosition(100,190)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
@@ -79,8 +79,7 @@ void setup() {
 
 void draw() {
   background(myColor);
-  myColor = lerpColor(c1,c2,n);
-  n += (1-n)* 0.1; 
+  myColor = lerpColor(0,255,1);
   image(img, 40, 250);
 }
 
@@ -94,8 +93,6 @@ public void controlEvent(ControlEvent theEvent) {
 // function colorA will receive changes from 
 // controller with name colorA
 public void Measure() { 
-  c1 = c2;
-  c2 = color(255,255,255);
   if ( port.available() > 0) {
     String value = port.readString();
            if (value != null) {
@@ -107,6 +104,8 @@ public void Measure() {
              TableRow newRow = table.addRow();
              newRow.setInt("Distance 1", distance_1);
              newRow.setInt("Distance 2", distance_2);
+             newRow.setInt("Distance 3", distance_3);
+             newRow.setInt("Distance 4", distance_4);
              saveTable(table, "data/data.csv");
              String display_1 = Integer.toString(distance_1);
              String display_2 = Integer.toString(distance_2);
