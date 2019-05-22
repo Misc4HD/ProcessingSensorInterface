@@ -9,7 +9,6 @@ Table table2;
 //define the serial port and GUI controller
 Serial port;
 ControlP5 cp5;
-PrintWriter output;
 //define text boxes
 Textarea Textarea_1;
 Textarea Textarea_2;
@@ -24,19 +23,9 @@ int distance_4 = 0;
 int myColor = color(255,255,255);
 
 void setup() {
-  int s = second();
-  int mi = minute();
-  int h = hour();
-  int d = day();
-  int m = month();
-  int y = year();
-  output = createWriter("temp.txt");
-  output.println(s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y);
-  output.flush(); 
-  output.close();
   //load background images
-  img1 = loadImage("Opstelling_File.png");
-  img2 = loadImage("Background.png");
+  img1 = loadImage("Backgrounds/Opstelling_File.png");
+  img2 = loadImage("Backgrounds/Background.png");
   //print the available serial ports
   printArray(Serial.list());
   //select port from the listed array
@@ -202,8 +191,13 @@ void keyPressed() {
 }
 
 void exit() {
-  String[] lines = loadStrings("temp.txt");
-  saveTable(table1, "Sensor_data/File_parkeren_" + lines[0] + ".csv");
-  saveTable(table2, "Sensor_data/Garage_parkeren_" + lines[0] + ".csv");
+  int s = second();
+  int mi = minute();
+  int h = hour();
+  int d = day();
+  int m = month();
+  int y = year();
+  saveTable(table1, "Sensor_data/File_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+  saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
 
 }
