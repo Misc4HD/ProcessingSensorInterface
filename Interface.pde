@@ -14,11 +14,7 @@ Textarea Textarea_1;
 Textarea Textarea_2;
 Textarea Textarea_3;
 Textarea Textarea_4;
-//define all intigers
-int distance_1 = 0;
-int distance_2 = 0;
-int distance_3 = 0;
-int distance_4 = 0;
+Textarea Textarea_5;
 
 int myColor = color(255,255,255);
 
@@ -85,11 +81,29 @@ void setup() {
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0));
+  Textarea_5 = cp5.addTextarea("Text_Distance_5")
+                  .setPosition(590,6)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
   //move all the text boxes to the global front to display them on all tabs               
   Textarea_1.moveTo("global");
   Textarea_2.moveTo("global");
   Textarea_3.moveTo("global");
   Textarea_4.moveTo("global");
+  Textarea_5.moveTo("global");
+ 
+  PFont font = createFont("arial",20);
+  cp5.addTextfield("input")
+                 .setPosition(700,0)
+                 .setSize(100,40)
+                 .setFont(font)
+                 .setFocus(true)
+                 .setAutoClear(false)
+                 .setColor(color(255,255,255));
+  cp5.getController("input").moveTo("global");
+
   //create used tabs                 
   cp5.getTab("default")
                  .activateEvent(true)
@@ -100,11 +114,16 @@ void setup() {
                  .activateEvent(true)
                  .setLabel("garage parkeren")
                  .setHeight(40)
-                 .setId(2);                          
+                 .setId(2);  
+  Textarea_1.setText("Distance a: ");
+  Textarea_2.setText("Distance b: ");
+  Textarea_3.setText("Distance d: ");
+  Textarea_4.setText("Distance f: ");
 } 
 
 void draw() {
-        image(img2, 0, 0);
+        image(img2, 50, 0);
+        Textarea_5.setText("Distance c:");
 }
 //check in which tab the user is and reader the correspondent background and image
 void controlEvent(ControlEvent theControlEvent) {
@@ -120,6 +139,12 @@ void controlEvent(ControlEvent theControlEvent) {
     }
   }
 }
+
+public void input(String theText) {
+  // automatically receives results from controller input
+  println("a textfield event for controller 'input' : "+theText);
+}
+
 //button click event
 public void Measure_1() { 
   //set the background and image again to prevent it from disappearing  
