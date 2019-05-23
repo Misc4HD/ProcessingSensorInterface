@@ -1,7 +1,7 @@
 # ProcessingSensorInterface
 Sensor interface parking tests.
 
-Processing is programmed with Processing.
+Interface is programmed with Processing.
 
 Sensorsim is programmed with Arduino.
 # Releases
