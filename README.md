@@ -1,6 +1,8 @@
 # ProcessingSensorInterface
 Sensor interface for parking tests, colecting and storing data.
 
+![alt text]()
+
 Interface is programmed with Processing.
 
 SensorSim is programmed with Arduino.
