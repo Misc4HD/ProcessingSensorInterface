@@ -1,5 +1,5 @@
-# ProcessingSensorInterfaceFord
-Sensor interface parking tests Ford Lommel.
+# ProcessingSensorInterface
+Sensor interface parking tests.
 # Releases
 https://github.com/Misc4HD/ProcessingSensorInterfaceFord/releases
 # ToDo
