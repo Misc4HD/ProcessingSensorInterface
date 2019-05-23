@@ -24,6 +24,7 @@ Textarea Textarea_9;
 Textarea Textarea_10;
 Textarea Textarea_11;
 PrintWriter output;
+PrintWriter output1;
 
 int myColor = color(255,255,255);
 
@@ -40,15 +41,21 @@ void setup() {
   port = new Serial(this,Serial.list()[0], 9600); 
   //create a new table and generate the collums
   table1 = new Table();
-  table1.addColumn("Distance 1");
-  table1.addColumn("Distance 2");
-  table1.addColumn("Distance 3");
-  table1.addColumn("Distance 4");
+  table1.addColumn("Distance a");
+  table1.addColumn("Distance b");
+  table1.addColumn("Distance d");
+  table1.addColumn("Distance f");
+  table1.addColumn("Distance c");
   table2 = new Table();
-  table2.addColumn("Distance 1");
-  table2.addColumn("Distance 2");
-  table2.addColumn("Distance 3");
-  table2.addColumn("Distance 4");
+  table2.addColumn("Distance a");
+  table2.addColumn("Distance b");
+  table2.addColumn("Distance d");
+  table2.addColumn("Distance f");
+  table2.addColumn("Distance c");
+  output1 = createWriter("Sensor_data/tempd.txt"); 
+  output1.println("20");
+  output1.flush();
+  output1.close();
   //window size off the app
   size(800,550);
   noStroke();
@@ -165,7 +172,6 @@ void setup() {
                  .setSize(100,40)
                  .setFont(font)
                  .setFocus(true)
-                 .setAutoClear(false)
                  .setColor(color(255,255,255));
   cp5.getController("input").moveTo("global");
 
@@ -197,22 +203,26 @@ void setup() {
   image(img2, 100, 500);
   image(img1, 40, 300);
 
-
+  println("Ignore the error message above");
 } 
 
 void draw() {
         image(img2, 50, 0);
+        String[] value1 = loadStrings("Sensor_data/tempd.txt");
         Textarea_5.setText("Distance c:");
+        Textarea_6.setText("Distance c: " + value1[0]);
           if ( port.available() > 0) {
             String value = port.readString();
             if (value != null) {
-              output = createWriter("Sensor_data/temp.txt"); 
+              output = createWriter("Sensor_data/temps.txt"); 
               output.println(value);
               output.flush();
               output.close();
            }
           }
 }
+
+
 //check in which tab the user is and reader the correspondent background and image
 void controlEvent(ControlEvent theControlEvent) {
   if (theControlEvent.isTab()) {
@@ -230,8 +240,11 @@ void controlEvent(ControlEvent theControlEvent) {
 
 public void input(String theText) {
   // automatically receives results from controller input
-  println("a textfield event for controller 'input' : "+theText);
-  Textarea_6.setText("Distance c: " + theText);
+  println("Distance c: "+theText);
+  output1 = createWriter("Sensor_data/tempd.txt"); 
+  output1.println(theText);
+  output1.flush();
+  output1.close();
 
 }
 
@@ -241,7 +254,7 @@ public void Measure_1() {
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img1, 40, 300);
-             String[] value = loadStrings("Sensor_data/temp.txt");
+             String[] value = loadStrings("Sensor_data/temps.txt");
              int[] list = int(split(value[0], ',')); 
              //convert the integers to strings
              String display_1 = Integer.toString(list[0]);
@@ -262,7 +275,7 @@ public void Measure_2() {
   background(myColor);
       myColor = lerpColor(0,255,1);  
       image(img3, 200, 230);
-             String[] value = loadStrings("Sensor_data/temp.txt");
+             String[] value = loadStrings("Sensor_data/temps.txt");
              int[] list = int(split(value[0], ','));      
              String display_5 = Integer.toString(list[0]);
              String display_6 = Integer.toString(list[1]);
@@ -280,13 +293,16 @@ public void Save1() {
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img4, 300, 300);
-             String[] value = loadStrings("Sensor_data/temp.txt");
-             int[] list = int(split(value[0], ','));      
+             String[] value = loadStrings("Sensor_data/temps.txt");
+             String[] value1 = loadStrings("Sensor_data/tempd.txt");
+             int[] list = int(split(value[0], ',')); 
+             int[] tempd = int(split(value1[0], ","));
              TableRow newRow = table1.addRow();
-             newRow.setInt("Distance 1", list[0]);
-             newRow.setInt("Distance 2", list[1]);
-             newRow.setInt("Distance 3", list[2]);
-             newRow.setInt("Distance 4", list[3]);
+             newRow.setInt("Distance a", list[0]);
+             newRow.setInt("Distance b", list[1]);
+             newRow.setInt("Distance d", list[2]);
+             newRow.setInt("Distance f", list[3]);
+             newRow.setInt("Distance c", tempd[0]);
              String display_1 = Integer.toString(list[0]);
              String display_2 = Integer.toString(list[1]);
              String display_3 = Integer.toString(list[2]);
@@ -304,13 +320,16 @@ public void Save2() {
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img4, 300, 300);
-             String[] value = loadStrings("Sensor_data/temp.txt");
-             int[] list = int(split(value[0], ','));      
+             String[] value = loadStrings("Sensor_data/temps.txt");
+             String[] value1 = loadStrings("Sensor_data/tempd.txt");
+             int[] list = int(split(value[0], ','));   
+             int[] tempd = int(split(value1[0], ","));
              TableRow newRow = table2.addRow();
-             newRow.setInt("Distance 1", list[0]);
-             newRow.setInt("Distance 2", list[1]);
-             newRow.setInt("Distance 3", list[2]);
-             newRow.setInt("Distance 4", list[3]);
+             newRow.setInt("Distance a", list[0]);
+             newRow.setInt("Distance b", list[1]);
+             newRow.setInt("Distance d", list[2]);
+             newRow.setInt("Distance f", list[3]);
+             newRow.setInt("Distance c", tempd[0]);
              String display_5 = Integer.toString(list[0]);
              String display_6 = Integer.toString(list[1]);
              String display_7 = Integer.toString(list[2]);
