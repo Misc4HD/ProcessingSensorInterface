@@ -5,6 +5,6 @@ https://github.com/Misc4HD/ProcessingSensorInterfaceFord/releases
 # ToDo
 *Add formulas to calculate the unknown variables.
 
-*Expand the data tables to include these values.
+*Expand the data tables to include these variables.
 
-*Fix startup error?
+*Fix startup error??
