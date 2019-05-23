@@ -1,5 +1,5 @@
 # ProcessingSensorInterface
-Sensor interface parking tests.
+Sensor interface for parking tests. Colecting and storing data.
 
 Interface is programmed with Processing.
 
