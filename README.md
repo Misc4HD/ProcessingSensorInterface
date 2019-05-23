@@ -3,7 +3,7 @@ Sensor interface parking tests.
 
 Interface is programmed with Processing.
 
-Sensorsim is programmed with Arduino.
+SensorSim is programmed with Arduino.
 # Releases
 https://github.com/Misc4HD/ProcessingSensorInterfaceFord/releases
 # ToDo
