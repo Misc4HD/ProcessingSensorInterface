@@ -17,6 +17,12 @@ Textarea Textarea_2;
 Textarea Textarea_3;
 Textarea Textarea_4;
 Textarea Textarea_5;
+Textarea Textarea_6;
+Textarea Textarea_7;
+Textarea Textarea_8;
+Textarea Textarea_9;
+Textarea Textarea_10;
+Textarea Textarea_11;
 
 int myColor = color(255,255,255);
 
@@ -60,10 +66,12 @@ void setup() {
      .setSize(200,40);
   cp5.addButton("Save1")
      .setValue(0)
+     .setLabel("Save")
      .setPosition(402,45)
      .setSize(200,40);
   cp5.addButton("Save2")
-     .setValue(0)
+     .setValue(0)     
+     .setLabel("Save")
      .setPosition(402,45)
      .setSize(200,40);
   //move button 2 to tab 2
@@ -78,19 +86,19 @@ void setup() {
                   .setLineHeight(14)
                   .setColor(color(0));                   
   Textarea_2 = cp5.addTextarea("Text_Distance_2")
-                  .setPosition(100,130)
+                  .setPosition(330,100)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0));
   Textarea_3 = cp5.addTextarea("Text_Distance_3")
-                  .setPosition(100,160)
+                  .setPosition(100,130)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0));  
   Textarea_4 = cp5.addTextarea("Text_Distance_4")
-                  .setPosition(100,190)
+                  .setPosition(550,130)
                   .setSize(200,200)
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
@@ -101,13 +109,55 @@ void setup() {
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0));
+  Textarea_6 = cp5.addTextarea("Text_Distance_6")
+                  .setPosition(550,100)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_7 = cp5.addTextarea("Text_Distance_7")
+                  .setPosition(330,130)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_8 = cp5.addTextarea("Text_Distance_8")
+                  .setPosition(100,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_9 = cp5.addTextarea("Text_Distance_9")
+                  .setPosition(330,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_10 = cp5.addTextarea("Text_Distance_10")
+                  .setPosition(550,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_11 = cp5.addTextarea("Text_Distance_11")
+                  .setPosition(330,190)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
   //move all the text boxes to the global front to display them on all tabs               
   Textarea_1.moveTo("global");
   Textarea_2.moveTo("global");
   Textarea_3.moveTo("global");
   Textarea_4.moveTo("global");
   Textarea_5.moveTo("global");
- 
+  Textarea_6.moveTo("global");
+  Textarea_7.moveTo("global");
+  Textarea_8.moveTo("global");
+  Textarea_9.moveTo("global");
+  Textarea_10.moveTo("global");
+  Textarea_11.moveTo("global");
+
   PFont font = createFont("arial",20);
   cp5.addTextfield("input")
                  .setPosition(700,0)
@@ -133,6 +183,13 @@ void setup() {
   Textarea_2.setText("Distance b: ");
   Textarea_3.setText("Distance d: ");
   Textarea_4.setText("Distance f: ");
+  Textarea_6.setText("Distance c: ");
+  Textarea_7.setText("Distance e: ");
+  Textarea_8.setText("Distance g: ");
+  Textarea_9.setText("Distance h: ");
+  Textarea_10.setText("Distance i: ");
+  Textarea_11.setText("Hoek α: ");
+
   image(img2, 40, 200);
   image(img2, 100, 200);
   image(img2, 40, 500);
@@ -164,6 +221,8 @@ void controlEvent(ControlEvent theControlEvent) {
 public void input(String theText) {
   // automatically receives results from controller input
   println("a textfield event for controller 'input' : "+theText);
+  Textarea_6.setText("Distance c: " + theText);
+
 }
 
 //button click event
