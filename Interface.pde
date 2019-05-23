@@ -23,6 +23,7 @@ Textarea Textarea_8;
 Textarea Textarea_9;
 Textarea Textarea_10;
 Textarea Textarea_11;
+PrintWriter output;
 
 int myColor = color(255,255,255);
 
@@ -202,6 +203,15 @@ void setup() {
 void draw() {
         image(img2, 50, 0);
         Textarea_5.setText("Distance c:");
+          if ( port.available() > 0) {
+            String value = port.readString();
+            if (value != null) {
+              output = createWriter("Sensor_data/temp.txt"); 
+              output.println(value);
+              output.flush();
+              output.close();
+           }
+          }
 }
 //check in which tab the user is and reader the correspondent background and image
 void controlEvent(ControlEvent theControlEvent) {
@@ -231,14 +241,8 @@ public void Measure_1() {
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img1, 40, 300);
-  //check if the serial port is available
-  if ( port.available() > 0) {
-    //read the serial port as a string
-    String value = port.readString();
-      //if the serial port reads null ignore it
-      if (value != null) {
-             //split the string in to a list of intigers
-             int[] list = int(split(value, ','));
+             String[] value = loadStrings("Sensor_data/temp.txt");
+             int[] list = int(split(value[0], ',')); 
              //convert the integers to strings
              String display_1 = Integer.toString(list[0]);
              String display_2 = Integer.toString(list[1]);
@@ -252,18 +256,14 @@ public void Measure_1() {
              //print info to the console
              println("Measurments done!");
              println(list);
-         }
-  }
 }
 
 public void Measure_2() { 
   background(myColor);
       myColor = lerpColor(0,255,1);  
       image(img3, 200, 230);
-  if ( port.available() > 0) {
-    String value = port.readString();
-           if (value != null) {
-             int[] list = int(split(value, ','));      
+             String[] value = loadStrings("Sensor_data/temp.txt");
+             int[] list = int(split(value[0], ','));      
              String display_5 = Integer.toString(list[0]);
              String display_6 = Integer.toString(list[1]);
              String display_7 = Integer.toString(list[2]);
@@ -274,18 +274,14 @@ public void Measure_2() {
              Textarea_4.setText("Distance f: " + display_8);
              println("Measurments done!");
              println(list);
-         }
-  }
 }
 
 public void Save1() { 
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img4, 300, 300);
-  if ( port.available() > 0) {
-    String value = port.readString();
-           if (value != null) {
-             int[] list = int(split(value, ','));      
+             String[] value = loadStrings("Sensor_data/temp.txt");
+             int[] list = int(split(value[0], ','));      
              TableRow newRow = table1.addRow();
              newRow.setInt("Distance 1", list[0]);
              newRow.setInt("Distance 2", list[1]);
@@ -302,18 +298,14 @@ public void Save1() {
              Textarea_4.setText("Distance f: " + display_4);
              println("Save done!");
              println(list);
-         }
-  }
 }
 
 public void Save2() { 
   background(myColor);
   myColor = lerpColor(0,255,1);  
   image(img4, 300, 300);
-  if ( port.available() > 0) {
-    String value = port.readString();
-           if (value != null) {
-             int[] list = int(split(value, ','));      
+             String[] value = loadStrings("Sensor_data/temp.txt");
+             int[] list = int(split(value[0], ','));      
              TableRow newRow = table2.addRow();
              newRow.setInt("Distance 1", list[0]);
              newRow.setInt("Distance 2", list[1]);
@@ -329,8 +321,6 @@ public void Save2() {
              Textarea_4.setText("Distance f: " + display_8);
              println("Save done!");
              println(list);
-         }
-  }
 }
 
 void keyPressed() {
@@ -346,7 +336,8 @@ void exit() {
   int d = day();
   int m = month();
   int y = year();
+  table1.removeRow(0);
+  table2.removeRow(0);
   saveTable(table1, "Sensor_data/File_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
   saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
-
 }
