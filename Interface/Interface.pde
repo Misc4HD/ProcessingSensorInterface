@@ -23,6 +23,15 @@ Textarea Textarea_8;
 Textarea Textarea_9;
 Textarea Textarea_10;
 Textarea Textarea_11;
+Textarea Textarea_12;
+Textarea Textarea_13;
+Textarea Textarea_14;
+Textarea Textarea_15;
+Textarea Textarea_16;
+Textarea Textarea_17;
+Textarea Textarea_18;
+Textarea Textarea_19;
+Textarea Textarea_20;
 PrintWriter output;
 PrintWriter output1;
 
@@ -61,29 +70,18 @@ void setup() {
   noStroke();
   
   cp5 = new ControlP5(this);
-  //create the buttons in the tabs  
-  cp5.addButton("Measure_1")
-     .setValue(0)
-     .setLabel("Measure")
-     .setPosition(198,45)
-     .setSize(200,40);
-  cp5.addButton("Measure_2")
-     .setValue(0)
-     .setLabel("Measure")
-     .setPosition(198,45)
-     .setSize(200,40);
+  //create the buttons in the tabs 
   cp5.addButton("Save1")
      .setValue(0)
      .setLabel("Save")
-     .setPosition(402,45)
+     .setPosition(300,45)
      .setSize(200,40);
   cp5.addButton("Save2")
      .setValue(0)     
      .setLabel("Save")
-     .setPosition(402,45)
+     .setPosition(300,45)
      .setSize(200,40);
-  //move button 2 to tab 2
-  cp5.getController("Measure_2").moveTo("garage_parkeren");
+  //move button to tab 2
   cp5.getController("Save2").moveTo("garage_parkeren");
 
   //create all the used text boxes       
@@ -153,18 +151,81 @@ void setup() {
                   .setFont(createFont("arial",20))
                   .setLineHeight(14)
                   .setColor(color(0));
+  Textarea_12 = cp5.addTextarea("Text_Distance_12")
+                  .setPosition(100,100)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));                   
+  Textarea_13 = cp5.addTextarea("Text_Distance_13")
+                  .setPosition(330,100)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_14 = cp5.addTextarea("Text_Distance_14")
+                  .setPosition(100,130)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));  
+  Textarea_15 = cp5.addTextarea("Text_Distance_15")
+                  .setPosition(550,130)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_16= cp5.addTextarea("Text_Distance_16")
+                  .setPosition(330,130)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_17 = cp5.addTextarea("Text_Distance_17")
+                  .setPosition(100,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_18 = cp5.addTextarea("Text_Distance_18")
+                  .setPosition(330,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_19 = cp5.addTextarea("Text_Distance_19")
+                  .setPosition(550,160)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
+  Textarea_20 = cp5.addTextarea("Text_Distance_20")
+                  .setPosition(330,190)
+                  .setSize(200,200)
+                  .setFont(createFont("arial",20))
+                  .setLineHeight(14)
+                  .setColor(color(0));
   //move all the text boxes to the global front to display them on all tabs               
-  Textarea_1.moveTo("global");
-  Textarea_2.moveTo("global");
-  Textarea_3.moveTo("global");
-  Textarea_4.moveTo("global");
+  Textarea_1.moveTo("default");
+  Textarea_2.moveTo("default");
+  Textarea_3.moveTo("default");
+  Textarea_4.moveTo("default");
   Textarea_5.moveTo("global");
   Textarea_6.moveTo("global");
-  Textarea_7.moveTo("global");
-  Textarea_8.moveTo("global");
-  Textarea_9.moveTo("global");
-  Textarea_10.moveTo("global");
-  Textarea_11.moveTo("global");
+  Textarea_7.moveTo("default");
+  Textarea_8.moveTo("default");
+  Textarea_9.moveTo("default");
+  Textarea_10.moveTo("default");
+  Textarea_11.moveTo("default");
+  Textarea_12.moveTo("garage_parkeren");
+  Textarea_13.moveTo("garage_parkeren");
+  Textarea_14.moveTo("garage_parkeren");
+  Textarea_15.moveTo("garage_parkeren");
+  Textarea_16.moveTo("garage_parkeren");
+  Textarea_17.moveTo("garage_parkeren");
+  Textarea_18.moveTo("garage_parkeren");
+  Textarea_19.moveTo("garage_parkeren");
+  Textarea_20.moveTo("garage_parkeren");
 
   PFont font = createFont("arial",20);
   cp5.addTextfield("input")
@@ -186,39 +247,57 @@ void setup() {
                  .setLabel("garage parkeren")
                  .setHeight(40)
                  .setId(2);  
-  Textarea_1.setText("Distance a: ");
-  Textarea_2.setText("Distance b: ");
-  Textarea_3.setText("Distance d: ");
-  Textarea_4.setText("Distance f: ");
-  Textarea_6.setText("Distance c: ");
-  Textarea_7.setText("Distance e: ");
-  Textarea_8.setText("Distance g: ");
-  Textarea_9.setText("Distance h: ");
-  Textarea_10.setText("Distance i: ");
-  Textarea_11.setText("Hoek α: ");
 
   image(img2, 40, 200);
   image(img2, 100, 200);
   image(img2, 40, 500);
   image(img2, 100, 500);
   image(img1, 40, 300);
-
-  println("Ignore the error message above");
 } 
 
 void draw() {
-        image(img2, 50, 0);
+  image(img2, 50, 0);
+  if ( port.available() > 0) {
+    String value = port.readString();
+    if (value != null) {
+      output = createWriter("Sensor_data/temps.txt"); 
+      output.println(value);
+      output.flush();
+      output.close();
+  }
         String[] value1 = loadStrings("Sensor_data/tempd.txt");
+        String[] test = loadStrings("Sensor_data/temps.txt");
+        int[] list = int(split(test[0], ',')); 
+        //convert the integers to strings
+        String display_1 = Integer.toString(list[0]);
+        String display_2 = Integer.toString(list[1]);
+        String display_3 = Integer.toString(list[2]);
+        String display_4 = Integer.toString(list[3]);
+        String display_5 = Integer.toString(list[4]);
+        String display_6 = Integer.toString(list[5]);
+        String display_7 = Integer.toString(list[6]);
+        String display_8 = Integer.toString(list[7]);
+        //display the strings in the text boxes 
+        Textarea_1.setText("Distance a: " + display_1);
+        Textarea_2.setText("Distance b: " + display_2);
+        Textarea_3.setText("Distance d: " + display_3);
+        Textarea_4.setText("Distance f: " + display_4);
         Textarea_5.setText("Distance c:");
         Textarea_6.setText("Distance c: " + value1[0]);
-          if ( port.available() > 0) {
-            String value = port.readString();
-            if (value != null) {
-              output = createWriter("Sensor_data/temps.txt"); 
-              output.println(value);
-              output.flush();
-              output.close();
-           }
+        Textarea_7.setText("Distance e: ");
+        Textarea_8.setText("Distance g: ");
+        Textarea_9.setText("Distance h: ");
+        Textarea_10.setText("Distance i: ");
+        Textarea_11.setText("Hoek α: ");
+        Textarea_12.setText("Distance a: " + display_5);
+        Textarea_13.setText("Distance b: " + display_6);
+        Textarea_14.setText("Distance d: " + display_7);
+        Textarea_15.setText("Distance f: " + display_8);
+        Textarea_16.setText("Distance e: ");
+        Textarea_17.setText("Distance g: ");
+        Textarea_18.setText("Distance h: ");
+        Textarea_19.setText("Distance i: ");
+        Textarea_20.setText("Hoek α: ");
           }
 }
 
@@ -248,47 +327,6 @@ public void input(String theText) {
 
 }
 
-//button click event
-public void Measure_1() { 
-  //set the background and image again to prevent it from disappearing  
-  background(myColor);
-  myColor = lerpColor(0,255,1);  
-  image(img1, 40, 300);
-             String[] value = loadStrings("Sensor_data/temps.txt");
-             int[] list = int(split(value[0], ',')); 
-             //convert the integers to strings
-             String display_1 = Integer.toString(list[0]);
-             String display_2 = Integer.toString(list[1]);
-             String display_3 = Integer.toString(list[2]);
-             String display_4 = Integer.toString(list[3]);
-             //display the strings in the text boxes 
-             Textarea_1.setText("Distance a: " + display_1);
-             Textarea_2.setText("Distance b: " + display_2);
-             Textarea_3.setText("Distance d: " + display_3);
-             Textarea_4.setText("Distance f: " + display_4);
-             //print info to the console
-             println("Measurments done!");
-             println(list);
-}
-
-public void Measure_2() { 
-  background(myColor);
-      myColor = lerpColor(0,255,1);  
-      image(img3, 200, 230);
-             String[] value = loadStrings("Sensor_data/temps.txt");
-             int[] list = int(split(value[0], ','));      
-             String display_5 = Integer.toString(list[0]);
-             String display_6 = Integer.toString(list[1]);
-             String display_7 = Integer.toString(list[2]);
-             String display_8 = Integer.toString(list[3]);
-             Textarea_1.setText("Distance a: " + display_5);
-             Textarea_2.setText("Distance b: " + display_6);
-             Textarea_3.setText("Distance d: " + display_7);
-             Textarea_4.setText("Distance f: " + display_8);
-             println("Measurments done!");
-             println(list);
-}
-
 public void Save1() { 
   background(myColor);
   myColor = lerpColor(0,255,1);  
@@ -303,17 +341,8 @@ public void Save1() {
              newRow.setInt("Distance d", list[2]);
              newRow.setInt("Distance f", list[3]);
              newRow.setInt("Distance c", tempd[0]);
-             String display_1 = Integer.toString(list[0]);
-             String display_2 = Integer.toString(list[1]);
-             String display_3 = Integer.toString(list[2]);
-             String display_4 = Integer.toString(list[3]);
-             //display the strings in the text boxes 
-             Textarea_1.setText("Distance a: " + display_1);
-             Textarea_2.setText("Distance b: " + display_2);
-             Textarea_3.setText("Distance d: " + display_3);
-             Textarea_4.setText("Distance f: " + display_4);
              println("Save done!");
-             println(list);
+             println(list);    
 }
 
 public void Save2() { 
@@ -330,17 +359,10 @@ public void Save2() {
              newRow.setInt("Distance d", list[2]);
              newRow.setInt("Distance f", list[3]);
              newRow.setInt("Distance c", tempd[0]);
-             String display_5 = Integer.toString(list[0]);
-             String display_6 = Integer.toString(list[1]);
-             String display_7 = Integer.toString(list[2]);
-             String display_8 = Integer.toString(list[3]);
-             Textarea_1.setText("Distance a: " + display_5);
-             Textarea_2.setText("Distance b: " + display_6);
-             Textarea_3.setText("Distance d: " + display_7);
-             Textarea_4.setText("Distance f: " + display_8);
              println("Save done!");
              println(list);
 }
+
 
 void keyPressed() {
   if(keyCode==TAB) {
@@ -359,4 +381,6 @@ void exit() {
   table2.removeRow(0);
   saveTable(table1, "Sensor_data/File_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
   saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-"+ mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+  port.stop();
+  noLoop();
 }
