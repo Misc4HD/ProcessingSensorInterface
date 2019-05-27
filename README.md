@@ -15,4 +15,4 @@ https://github.com/Misc4HD/ProcessingSensorInterfaceFord/releases
 
 *~~Fix startup error Fixed ??~~
 
-*~~Rework interface and data processing.
+*~~Rework interface and data processing.~~
