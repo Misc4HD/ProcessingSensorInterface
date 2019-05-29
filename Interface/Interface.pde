@@ -5,7 +5,6 @@ import processing.serial.*;
 PImage img1;
 PImage img2;
 PImage img3;
-PImage img4;
 Table table1;
 Table table2;
 //define the serial port and GUI controller
@@ -42,7 +41,6 @@ void setup() {
   img1 = loadImage("Backgrounds/Opstelling_File.png");
   img2 = loadImage("Backgrounds/Background.png");
   img3 = loadImage("Backgrounds/Opstelling_Garage.png");
-  img4 = loadImage("Backgrounds/Done.png");
   //print the available serial ports
   printArray(Serial.list());
   //select port from the listed array
@@ -247,7 +245,8 @@ void setup() {
                  .setLabel("garage parkeren")
                  .setHeight(40)
                  .setId(2);  
-
+  background(myColor);
+  myColor = lerpColor(0,255,1); 
   image(img2, 40, 200);
   image(img2, 100, 200);
   image(img2, 40, 500);
@@ -267,40 +266,61 @@ void draw() {
   }
         String[] value1 = loadStrings("Sensor_data/tempd.txt");
         String[] test = loadStrings("Sensor_data/temps.txt");
-        int[] list = int(split(test[0], ',')); 
+        int[] list = int(split(test[0], ','));
+        int[] listc = int(split(value1[0], ',')); 
         //convert the integers to strings
-        String display_1 = Integer.toString(list[0]);
-        String display_2 = Integer.toString(list[1]);
-        String display_3 = Integer.toString(list[2]);
-        String display_4 = Integer.toString(list[3]);
-        String display_5 = Integer.toString(list[4]);
-        String display_6 = Integer.toString(list[5]);
-        String display_7 = Integer.toString(list[6]);
-        String display_8 = Integer.toString(list[7]);
+        String display_1a = Integer.toString(list[0]);
+        String display_2b = Integer.toString(list[1]);
+        String display_3d = Integer.toString(list[2]);
+        String display_4f = Integer.toString(list[3]);
+        String display_5a = Integer.toString(list[4]);
+        String display_6b = Integer.toString(list[5]);
+        String display_7g = Integer.toString(list[6]);
+        float hoekr = atan2((list[1]-list[0]), listc[0]);
+        float hoekrr = atan2((list[5]-list[4]), listc[0]);
+        float hoekd = degrees(hoekr);
+        float hoekdd = degrees(hoekrr);
+        float e = list[2] * cos(abs(hoekr));
+        float g = list[3] * cos(abs(hoekr));
+        float h = list[0] * cos(abs(hoekr));
+        float i = list[1] * cos(abs(hoekr));
+        float ee = list[5] * cos(abs(hoekrr));
+        float dd = list[6] * cos(abs(hoekrr));
+        float ff = list[4] * cos(abs(hoekrr));
+        int ei = Math.round(e);
+        int gi = Math.round(g);
+        int hi = Math.round(h);
+        int ii = Math.round(i);
+        int eei = Math.round(ee);
+        int ffi = Math.round(ff);
+        int ddi = Math.round(dd);
+        hoekd = fixDec(hoekd, 2);
+        hoekdd = fixDec(hoekdd, 2);   
         //display the strings in the text boxes 
-        Textarea_1.setText("Distance a: " + display_1);
-        Textarea_2.setText("Distance b: " + display_2);
-        Textarea_3.setText("Distance d: " + display_3);
-        Textarea_4.setText("Distance f: " + display_4);
+        Textarea_1.setText("Distance a: " + display_1a);
+        Textarea_2.setText("Distance b: " + display_2b);
+        Textarea_3.setText("Distance d: " + display_3d);
+        Textarea_4.setText("Distance f: " + display_4f);
         Textarea_5.setText("Distance c:");
         Textarea_6.setText("Distance c: " + value1[0]);
-        Textarea_7.setText("Distance e: ");
-        Textarea_8.setText("Distance g: ");
-        Textarea_9.setText("Distance h: ");
-        Textarea_10.setText("Distance i: ");
-        Textarea_11.setText("Hoek α: ");
-        Textarea_12.setText("Distance a: " + display_5);
-        Textarea_13.setText("Distance b: " + display_6);
-        Textarea_14.setText("Distance d: " + display_7);
-        Textarea_15.setText("Distance f: " + display_8);
-        Textarea_16.setText("Distance e: ");
-        Textarea_17.setText("Distance g: ");
-        Textarea_18.setText("Distance h: ");
-        Textarea_19.setText("Distance i: ");
-        Textarea_20.setText("Hoek α: ");
+        Textarea_7.setText("Distance e: " + ei);
+        Textarea_8.setText("Distance g: " + gi);
+        Textarea_9.setText("Distance h: " + hi);
+        Textarea_10.setText("Distance i: " + ii);
+        Textarea_11.setText("Hoek α: " + hoekd);
+        Textarea_12.setText("Distance a: " + display_5a);
+        Textarea_13.setText("Distance b: " + display_6b);
+        Textarea_14.setText("Distance d: " + ddi);
+        Textarea_15.setText("Distance f: " + ffi);
+        Textarea_16.setText("Distance e: " + eei);
+        Textarea_17.setText("Distance g: " + display_7g);
+        Textarea_20.setText("Hoek α: " + hoekdd);
           }
 }
 
+float fixDec(float n, int d) {
+  return Float.parseFloat(String.format("%." + d + "f", n));
+}
 
 //check in which tab the user is and reader the correspondent background and image
 void controlEvent(ControlEvent theControlEvent) {
@@ -327,10 +347,7 @@ public void input(String theText) {
 
 }
 
-public void Save1() { 
-  background(myColor);
-  myColor = lerpColor(0,255,1);  
-  image(img4, 300, 300);
+public void Save1() {  
              String[] value = loadStrings("Sensor_data/temps.txt");
              String[] value1 = loadStrings("Sensor_data/tempd.txt");
              int[] list = int(split(value[0], ',')); 
@@ -345,10 +362,7 @@ public void Save1() {
              println(list);    
 }
 
-public void Save2() { 
-  background(myColor);
-  myColor = lerpColor(0,255,1);  
-  image(img4, 300, 300);
+public void Save2() {  
              String[] value = loadStrings("Sensor_data/temps.txt");
              String[] value1 = loadStrings("Sensor_data/tempd.txt");
              int[] list = int(split(value[0], ','));   
@@ -361,6 +375,8 @@ public void Save2() {
              newRow.setInt("Distance c", tempd[0]);
              println("Save done!");
              println(list);
+         
+
 }
 
 
