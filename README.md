@@ -19,4 +19,4 @@ https://github.com/Misc4HD/ProcessingSensorInterfaceFord/releases
 
 * ~~Rework interface and data processing~~
 
-* Fix the save buttons
+* Fix save buttons to include the new variables
