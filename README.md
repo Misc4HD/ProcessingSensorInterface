@@ -1,7 +1,7 @@
 # ProcessingSensorInterface
 Sensor interface for parking tests, colecting and storing data.
 
-![alt text](https://github.com/Misc4HD/ProcessingSensorInterface/blob/master/ProjectImage.PNG)
+![alt text](https://github.com/Misc4HD/ProcessingSensorInterface/blob/master/ProjectImg.PNG)
 
 Interface is programmed with Processing (https://processing.org).
 
