@@ -5,6 +5,7 @@ import processing.serial.*;
 PImage img1;
 PImage img2;
 PImage img3;
+PImage img4;
 Table table1;
 Table table2;
 //define the serial port and GUI controller
@@ -35,15 +36,13 @@ PrintWriter output;
 PrintWriter output1;
 int myColor = color(255, 255, 255);
 void setup() {
-  //load background images
+  size(800, 550);
+  noStroke();
+  background(myColor);
   img1 = loadImage("Backgrounds/Opstelling_File.png");
   img2 = loadImage("Backgrounds/Background.png");
   img3 = loadImage("Backgrounds/Opstelling_Garage.png");
-  //print the available serial ports
-  printArray(Serial.list());
-  //select port from the listed array
-  //replace [0] to [1],[2]...for selecting a usable open port
-  port = new Serial(this, Serial.list()[0], 9600);
+  img4 = loadImage("Backgrounds/NoCom.png");
   //create a new table and generate the collums
   table1 = new Table();
   table1.addColumn("Distance a");
@@ -70,8 +69,6 @@ void setup() {
   output1.flush();
   output1.close();
   //window size off the app
-  size(800, 550);
-  noStroke();
   cp5 = new ControlP5(this);
   //create the buttons in the tabs 
   cp5.addButton("Save1")
@@ -249,24 +246,57 @@ void setup() {
     .setLabel("garage parkeren")
     .setHeight(40)
     .setId(2);
-  background(myColor);
-  myColor = lerpColor(0, 255, 1);
   image(img2, 40, 200);
   image(img2, 100, 200);
   image(img2, 40, 500);
   image(img2, 100, 500);
   image(img1, 40, 300);
+  myColor = lerpColor(0, 255, 1);
+  int lastPort = Serial.list()
+    .length - 1;
+  if (lastPort < 0) {
+    println("No com ports found pleas restart");
+      image(img4, 130, 230);
+
+  } else {
+    println("Locating device...");
+    //print the available serial ports
+    printArray(Serial.list());
+    //select port from the listed array
+    //replace [0] to [1],[2]...for selecting a usable open port
+    port = new Serial(this, Serial.list()[0], 9600);
+    //load background images
+  }
 }
 void draw() {
   image(img2, 50, 0);
-  if (port.available() > 0) {
+  int lastPort = Serial.list().length - 1;
+  if (lastPort < 0) {
+    Textarea_1.setText("Distance a: ");
+    Textarea_2.setText("Distance b: ");
+    Textarea_3.setText("Distance d: ");
+    Textarea_4.setText("Distance f: ");
+    Textarea_5.setText("Distance c:");
+    Textarea_6.setText("Distance c: ");
+    Textarea_7.setText("Distance e: ");
+    Textarea_8.setText("Distance g: ");
+    Textarea_9.setText("Distance h: ");
+    Textarea_10.setText("Distance i: ");
+    Textarea_11.setText("Hoek α: ");
+    Textarea_12.setText("Distance a: ");
+    Textarea_13.setText("Distance b: ");
+    Textarea_14.setText("Distance d: ");
+    Textarea_15.setText("Distance f: ");
+    Textarea_16.setText("Distance e: ");
+    Textarea_17.setText("Distance g: ");
+    Textarea_20.setText("Hoek α: " );
+  } else {
     String value = port.readString();
     if (value != null) {
-      output = createWriter("Sensor_data/temps.txt");
-      output.println(value);
-      output.flush();
-      output.close();
-    }
+    output = createWriter("Sensor_data/temps.txt");
+    output.println(value);
+    output.flush();
+    output.close();
     String[] value1 = loadStrings("Sensor_data/tempd.txt");
     String[] test = loadStrings("Sensor_data/temps.txt");
     int[] list = int(split(test[0], ','));
@@ -318,6 +348,7 @@ void draw() {
     Textarea_16.setText("Distance e: " + eei);
     Textarea_17.setText("Distance g: " + display_7g);
     Textarea_20.setText("Hoek α: " + hoekdd);
+    }
   }
 }
 float fixDec(float n, int d) {
@@ -351,56 +382,64 @@ public void Save1() {
   String[] value1 = loadStrings("Sensor_data/tempd.txt");
   int[] list = int(split(value[0], ','));
   int[] tempd = int(split(value1[0], ","));
-  float hoekr = atan2((list[1] - list[0]), tempd[0]);
-  float hoekd = degrees(hoekr);
-  float e = list[2] * cos(abs(hoekr));
-  float g = list[3] * cos(abs(hoekr));
-  float h = list[0] * cos(abs(hoekr));
-  float i = list[1] * cos(abs(hoekr));
-  int ei = Math.round(e);
-  int gi = Math.round(g);
-  int hi = Math.round(h);
-  int ii = Math.round(i);
-  hoekd = fixDec(hoekd, 2);
-  TableRow newRow = table1.addRow();
-  newRow.setInt("Distance a", list[0]);
-  newRow.setInt("Distance b", list[1]);
-  newRow.setInt("Distance c", tempd[0]);
-  newRow.setInt("Distance d", list[2]);
-  newRow.setInt("Distance e", ei);
-  newRow.setInt("Distance f", list[3]);
-  newRow.setInt("Distance g", gi);
-  newRow.setInt("Distance h", hi);
-  newRow.setInt("Distance i", ii);
-  newRow.setFloat("Hoek", hoekd);
-  println("Save done!");
-  println(list);
+  if (list[0] >= 0 && tempd[0] >= 0) {
+    float hoekr = atan2((list[1] - list[0]), tempd[0]);
+    float hoekd = degrees(hoekr);
+    float e = list[2] * cos(abs(hoekr));
+    float g = list[3] * cos(abs(hoekr));
+    float h = list[0] * cos(abs(hoekr));
+    float i = list[1] * cos(abs(hoekr));
+    int ei = Math.round(e);
+    int gi = Math.round(g);
+    int hi = Math.round(h);
+    int ii = Math.round(i);
+    hoekd = fixDec(hoekd, 2);
+    TableRow newRow = table1.addRow();
+    newRow.setInt("Distance a", list[0]);
+    newRow.setInt("Distance b", list[1]);
+    newRow.setInt("Distance c", tempd[0]);
+    newRow.setInt("Distance d", list[2]);
+    newRow.setInt("Distance e", ei);
+    newRow.setInt("Distance f", list[3]);
+    newRow.setInt("Distance g", gi);
+    newRow.setInt("Distance h", hi);
+    newRow.setInt("Distance i", ii);
+    newRow.setFloat("Hoek", hoekd);
+    println("Save done!");
+    println(list);
+  } else {
+    println("Error");
+  }
 }
 public void Save2() {
   String[] value = loadStrings("Sensor_data/temps.txt");
   String[] value1 = loadStrings("Sensor_data/tempd.txt");
   int[] list = int(split(value[0], ','));
   int[] tempd = int(split(value1[0], ","));
-  float hoekrr = atan2((list[5] - list[4]), tempd[0]);
-  float hoekdd = degrees(hoekrr);
-  float ee = list[5] * cos(abs(hoekrr));
-  float dd = list[6] * cos(abs(hoekrr));
-  float ff = list[4] * cos(abs(hoekrr));
-  int eei = Math.round(ee);
-  int ffi = Math.round(ff);
-  int ddi = Math.round(dd);
-  hoekdd = fixDec(hoekdd, 2);
-  TableRow newRow = table2.addRow();
-  newRow.setInt("Distance a", list[4]);
-  newRow.setInt("Distance b", list[5]);
-  newRow.setInt("Distance c", tempd[0]);
-  newRow.setInt("Distance d", ddi);
-  newRow.setInt("Distance e", eei);
-  newRow.setInt("Distance f", ffi);
-  newRow.setInt("Distance g", list[6]);
-  newRow.setFloat("Hoek", hoekdd);
-  println("Save done!");
-  println(list);
+  if (list[0] >= 0 && tempd[0] >= 0) {
+    float hoekrr = atan2((list[5] - list[4]), tempd[0]);
+    float hoekdd = degrees(hoekrr);
+    float ee = list[5] * cos(abs(hoekrr));
+    float dd = list[6] * cos(abs(hoekrr));
+    float ff = list[4] * cos(abs(hoekrr));
+    int eei = Math.round(ee);
+    int ffi = Math.round(ff);
+    int ddi = Math.round(dd);
+    hoekdd = fixDec(hoekdd, 2);
+    TableRow newRow = table2.addRow();
+    newRow.setInt("Distance a", list[4]);
+    newRow.setInt("Distance b", list[5]);
+    newRow.setInt("Distance c", tempd[0]);
+    newRow.setInt("Distance d", ddi);
+    newRow.setInt("Distance e", eei);
+    newRow.setInt("Distance f", ffi);
+    newRow.setInt("Distance g", list[6]);
+    newRow.setFloat("Hoek", hoekdd);
+    println("Save done!");
+    println(list);
+  } else {
+    println("Error");
+  }
 }
 void keyPressed() {
   if (keyCode == TAB) {
@@ -409,16 +448,32 @@ void keyPressed() {
   }
 }
 void exit() {
-  int s = second();
-  int mi = minute();
-  int h = hour();
-  int d = day();
-  int m = month();
-  int y = year();
-  table1.removeRow(0);
-  table2.removeRow(0);
-  saveTable(table1, "Sensor_data/File_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
-  saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
-  port.stop();
-  noLoop();
+  int lastPort = Serial.list()
+    .length - 1;
+  if (lastPort < 0) {
+    int s = second();
+    int mi = minute();
+    int h = hour();
+    int d = day();
+    int m = month();
+    int y = year();
+    table1.removeRow(0);
+    table2.removeRow(0);
+    saveTable(table1, "Sensor_data/File_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+    saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+    noLoop();
+  } else {
+    int s = second();
+    int mi = minute();
+    int h = hour();
+    int d = day();
+    int m = month();
+    int y = year();
+    table1.removeRow(0);
+    table2.removeRow(0);
+    saveTable(table1, "Sensor_data/File_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+    saveTable(table2, "Sensor_data/Garage_parkeren_" + s + "-" + mi + "-" + h + "_" + d + "-" + m + "-" + y + ".csv");
+    port.stop();
+    noLoop();
+  }
 }
